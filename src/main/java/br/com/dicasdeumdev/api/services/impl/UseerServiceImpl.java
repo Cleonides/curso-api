@@ -1,9 +1,11 @@
 package br.com.dicasdeumdev.api.services.impl;
 
 import br.com.dicasdeumdev.api.domain.Useer;
+import br.com.dicasdeumdev.api.domain.dto.UseerDTO;
 import br.com.dicasdeumdev.api.repositories.UseerRepository;
 import br.com.dicasdeumdev.api.services.UseerService;
 import br.com.dicasdeumdev.api.services.exceptions.ObjectNotFoundException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,9 @@ public class UseerServiceImpl implements UseerService {
     @Autowired
     private UseerRepository repository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Override
     public Useer findById(Integer id) {
         Optional<Useer> obj = repository.findById(id);
@@ -25,5 +30,10 @@ public class UseerServiceImpl implements UseerService {
     @Override
     public List<Useer> findAll() {
         return repository.findAll() ;
+    }
+
+    @Override
+    public Useer create(UseerDTO obj) {
+        return repository.save(modelMapper.map(obj, Useer.class));
     }
 }
