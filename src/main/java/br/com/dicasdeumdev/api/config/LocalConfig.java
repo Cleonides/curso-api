@@ -1,7 +1,7 @@
 package br.com.dicasdeumdev.api.config;
 
 import br.com.dicasdeumdev.api.domain.Useer;
-import br.com.dicasdeumdev.api.repositories.UserRepository;
+import br.com.dicasdeumdev.api.repositories.UseerRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,7 @@ import java.util.List;
 public class LocalConfig {
 
     @Autowired
-    private UserRepository repository;
+    private UseerRepository repository;
 
     @PostConstruct
     public void startDB(){
