@@ -1,6 +1,7 @@
 package br.com.dicasdeumdev.api.resources;
 
 import br.com.dicasdeumdev.api.domain.dto.UseerDTO;
+import br.com.dicasdeumdev.api.repositories.UseerRepository;
 import br.com.dicasdeumdev.api.services.UseerService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class UseerResource {
 
     @Autowired
     private UseerService service;
+    @Autowired
+    private UseerRepository useerRepository;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<UseerDTO> findById(@PathVariable Integer id) {
@@ -37,4 +40,5 @@ public class UseerResource {
                 fromCurrentRequestUri().path("/{id}").buildAndExpand(service.create(obj).getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+
 }
