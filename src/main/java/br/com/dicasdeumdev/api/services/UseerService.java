@@ -12,4 +12,6 @@ public interface UseerService {
     List<Useer> findAll();
 
     Useer create(UseerDTO obj);
+
+    Useer update(UseerDTO obj);
 }
