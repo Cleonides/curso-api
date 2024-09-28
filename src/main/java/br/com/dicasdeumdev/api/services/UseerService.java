@@ -14,4 +14,6 @@ public interface UseerService {
     Useer create(UseerDTO obj);
 
     Useer update(UseerDTO obj);
+
+    void delete(Integer id);
 }

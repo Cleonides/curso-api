@@ -16,6 +16,7 @@ import java.util.List;
 @RequestMapping(value =  "/user")
 public class UseerResource {
 
+    public static final String ID = "/{id}";
     @Autowired
     private ModelMapper modelMapper;
 
@@ -24,7 +25,7 @@ public class UseerResource {
     @Autowired
     private UseerRepository useerRepository;
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = ID)
     public ResponseEntity<UseerDTO> findById(@PathVariable Integer id) {
         return ResponseEntity.ok().body(modelMapper.map(service.findById(id), UseerDTO.class));
     }
@@ -37,15 +38,22 @@ public class UseerResource {
     @PostMapping
     public ResponseEntity<UseerDTO> create(@RequestBody UseerDTO obj){
         URI uri = ServletUriComponentsBuilder.
-                fromCurrentRequestUri().path("/{id}").buildAndExpand(service.create(obj).getId()).toUri();
+                fromCurrentRequestUri().path(ID).buildAndExpand(service.create(obj).getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = ID)
     public ResponseEntity<UseerDTO> update(@PathVariable Integer id, @RequestBody UseerDTO obj){
         obj.setId(id);
         return ResponseEntity.ok().body(modelMapper.map(service.update(obj), UseerDTO.class));
 
+    }
+
+    @DeleteMapping(value = ID)
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
+        findById(id);
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
